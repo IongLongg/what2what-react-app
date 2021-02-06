@@ -1,13 +1,13 @@
 import { MDBContainer, MDBFormInline, MDBIcon } from "mdbreact";
-import React, { useRef, useState } from "react";
-import PropTypes from 'prop-types'
+import React, { useState, useRef } from "react";
+import PropTypes from "prop-types";
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const typingTimeoutRef = useRef(null);
 
-  const handleSearchInput = (e) => {
-    const term = e.target.value;
+  const handleChange = (e) => {
+    let term = e.target.value;
     setSearchTerm(term);
 
     if (!onSearch) return;
@@ -17,7 +17,7 @@ const SearchBar = ({ onSearch }) => {
 
     typingTimeoutRef.current = setTimeout(() => {
       onSearch(term);
-    }, 500);
+    }, 1000);
   };
 
   return (
@@ -29,7 +29,7 @@ const SearchBar = ({ onSearch }) => {
           type="text"
           placeholder="Search"
           aria-label="Search"
-          onChange={handleSearchInput}
+          onChange={handleChange}
           value={searchTerm}
         />
       </MDBFormInline>
@@ -38,7 +38,7 @@ const SearchBar = ({ onSearch }) => {
 };
 
 SearchBar.propTypes = {
-    onSearch : PropTypes.func
-}
+  onSearch: PropTypes.func,
+};
 
 export default SearchBar;

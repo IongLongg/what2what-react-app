@@ -3,19 +3,22 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
 import Header from './components/Header'
 import Footer from './components/Footer'
 
 const App = () => {
-  const Home = React.lazy(() => import('./features/Movie/pages/Main'));
+  const MovieHomePage = React.lazy(() => import('./features/Movie'));
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Router>
         <Header/>
         <Switch>
-          <Route path="/" component={Home} />
+          <Redirect exact from="/" to="/movie"/>
+          
+          <Route path="/movie" component={MovieHomePage} />
         </Switch>
         <Footer/>
       </Router>
